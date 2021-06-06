@@ -6,6 +6,4 @@ public class Dog {
     public void sayName() {
         System.out.println(name);
     }
-
-
 }
