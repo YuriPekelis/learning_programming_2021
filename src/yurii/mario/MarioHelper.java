@@ -9,5 +9,6 @@ public class MarioHelper {
         Mario mario = new Mario();
         mario.printPyramid(height);
 
+
     }
 }
