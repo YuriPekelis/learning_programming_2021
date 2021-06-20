@@ -1,4 +1,4 @@
-package mario;
+package yurii.mario;
 
 public class Mario {
     public void printPyramid(int height) {

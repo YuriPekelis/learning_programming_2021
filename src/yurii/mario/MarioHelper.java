@@ -1,4 +1,4 @@
-package mario;
+package yurii.mario;
 
 import java.util.Scanner;
 
