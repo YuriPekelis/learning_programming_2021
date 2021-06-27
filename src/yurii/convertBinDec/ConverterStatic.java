@@ -31,7 +31,7 @@ public class ConverterStatic {
         return resultDec;
     }
 
-    public static String convert(int dec) {
+    public static String convert(int dec) { // Polymorphism
         int maxPow = (int)(Math.log(dec) / Math.log(2));
         char[] resultChars = new char[maxPow + 1];
         String resultBinary;
@@ -51,7 +51,7 @@ public class ConverterStatic {
         return resultBinary;
     }
 
-    public static int convert(String bin) {
+    public static int convert(String bin) { // Polymorphism
         int resultDec = 0;
         for(int i=0; i<bin.length(); i++) {
             int currValue = Integer.parseInt(String.valueOf(bin.charAt(i)));

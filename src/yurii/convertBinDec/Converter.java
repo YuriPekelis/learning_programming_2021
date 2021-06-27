@@ -4,16 +4,23 @@ public class Converter {
     private int dec;
     private String bin;
 
+    Converter() {
+    }
+
     Converter(int dec) {
         this.dec = dec;
     }
 
-//    Converter(int value1, int dec) {
-//        this.dec = value1 + dec;
-//    }
-
     Converter(String binNumber) {
         this.bin = binNumber;
+    }
+
+    public void setDec(int dec) {
+        this.dec = dec;
+    }
+
+    public void setBin(String bin) {
+        this.bin = bin;
     }
 
     public String convertToBin() {
@@ -44,6 +51,10 @@ public class Converter {
             resultDec += currentAddition;
         }
         return resultDec;
+    }
+
+    public int convertToIntAndPlus() {
+        return this.convertToInt() + this.dec;
     }
 
 

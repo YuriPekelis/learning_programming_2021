@@ -11,5 +11,9 @@ public class ConverterHelperBinToDec {
         System.out.println("Dec number normal: " + converter.convertToInt());
         System.out.println("Dec number static: " + ConverterStatic.convertToInt(binNumber));
         System.out.println("Dec number static one method: " + ConverterStatic.convert(binNumber));
+
+        converter.setDec(56);
+        int sum = converter.convertToIntAndPlus();
+        System.out.println("Sum number static one method: " + sum);
     }
 }
