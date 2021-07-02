@@ -1,25 +1,31 @@
 package andriy.sorter;
 
 public class Sorter {
-//    int[] numberArray = {4, 5, 2, 7, 10, 23, 55, 29, 101, 43, 88, 1};
     int[] array;
-    int []resultArray;
+    public int counter;
+    public int[] sortedArray;
 
     Sorter(int[] numberArray){
         this.array = numberArray;
     }
 
-    public int[] sorter(){
+    public int[] sorterCounter(){
+        boolean isSorted;
         for (int i = 0; i < this.array.length; i++) {
+            isSorted = true;
             for (int j = 0; j < this.array.length - 1; j++) {
                 if (this.array[j] > this.array[j+1]) {
                     int currentNumber = this.array[j];
                     this.array[j] = this.array[j+1];
                     this.array[j+1] = currentNumber;
+                    isSorted = false;
+                    sortedArray = this.array;
                 }
+            } if(isSorted){
+                    break;
             }
+            counter++;
         }
-        resultArray = this.array;
-        return resultArray;
+        return sortedArray;
     }
 }
