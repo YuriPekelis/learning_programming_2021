@@ -21,8 +21,9 @@ public class Sorter {
                     isSorted = false;
                     sortedArray = this.array;
                 }
-            } if(isSorted){
-                    break;
+            }
+            if(isSorted){
+                break;
             }
             counter++;
         }
