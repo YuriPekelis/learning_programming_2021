@@ -1,4 +1,4 @@
-package yurii.coder;
+package victor.coder;
 
 import java.util.prefs.BackingStoreException;
 
