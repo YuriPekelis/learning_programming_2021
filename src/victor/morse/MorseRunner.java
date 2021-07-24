@@ -7,7 +7,7 @@ public class MorseRunner {
         String result;
         System.out.println("Enter word:");
         Scanner scanner = new Scanner(System.in);
-        String word = scanner.next();
+        String word = scanner.nextLine();
         boolean isForDecode = true;
         for (char ch : word.toCharArray()) {
             if ((ch!= ' ')&&(ch!='-')&&(ch!= '.')) {
