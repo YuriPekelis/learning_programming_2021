@@ -1,14 +1,8 @@
 package andriy.library;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class LibraryOperator {
 
@@ -22,15 +16,23 @@ public class LibraryOperator {
     }
 
     private void readHeaders () throws FileNotFoundException {
+        this.headers = this.readAndParseLines().get(0);
+    }
+
+    private List <String []> readAndParseLines() throws FileNotFoundException {
+        List <String []> lines = new ArrayList<>();
         try {
             this.libraryFile = new File(this.filepath);
             Scanner myReader = new Scanner(this.libraryFile);
-            this.headers = myReader.nextLine().split(";");
+            while (myReader.hasNext()) {
+                lines.add(myReader.nextLine().split(";"));
+            }
             myReader.close();
         } catch (FileNotFoundException e) {
             System.out.println("File not found");
             throw e;
         }
+        return lines;
     }
 
     public void addBook() {
@@ -41,10 +43,11 @@ public class LibraryOperator {
             currentBook.add(scanner.nextLine());
         }
         try {
-            FileWriter libraryFile = new FileWriter(this.filepath);
+            BufferedWriter libraryFileWr = new BufferedWriter(new FileWriter(this.filepath, true));
             String resultString = String.join(";", currentBook);
-            libraryFile.write(resultString);
-            libraryFile.close();
+            libraryFileWr.newLine();
+            libraryFileWr.append(resultString);
+            libraryFileWr.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -55,7 +58,23 @@ public class LibraryOperator {
     }
 
     public void searchBook() {
+        System.out.println("Please choose type of searching attribute");
+        for (int i=0; i<headers.length; i++) {
+            System.out.println(String.format("%s. %s", i+1, headers[i]));
+        }
+        Scanner scanner = new Scanner(System.in);
+        int attributeIdx = -1;
+        try {
+            attributeIdx = scanner.nextInt();
+        } catch (InputMismatchException e) { }
+        if ((attributeIdx > 0) && (attributeIdx <= headers.length)) {
+            System.out.println(String.format("Enter your %s :", headers[attributeIdx-1]));
+//            headers[attributeIdx-1];
+            String searchingAttribute = scanner.next();
 
+        } else {
+            System.out.println("You chose wrong attribute");
+        }
     }
 }
 

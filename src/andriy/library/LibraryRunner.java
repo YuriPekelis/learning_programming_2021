@@ -23,7 +23,7 @@ public class LibraryRunner {
             } else if(operation == 2) {
 
             } else if (operation == 3){
-
+                library.searchBook();
             } else if (operation == 4){
                 System.exit(0);
             } else {
