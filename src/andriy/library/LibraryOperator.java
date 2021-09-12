@@ -9,17 +9,31 @@ public class LibraryOperator {
     private String filepath;
     private String[] headers;
     private File libraryFile;
+    private List <String[] > libraryState;
 
+
+    /**
+     * Constructor that reads file with filepath and creates headers
+     * @param filepath: path for the file with saved data
+     * @throws FileNotFoundException if there is no file with defined path
+     */
     public LibraryOperator(String filepath) throws FileNotFoundException {
         this.filepath = filepath;
+        this.libraryState = this.readAndParseLines();
         this.readHeaders();
+
     }
 
     private void readHeaders () throws FileNotFoundException {
-        this.headers = this.readAndParseLines().get(0);
+        this.headers = this.libraryState.get(0);
     }
 
-    private List <String []> readAndParseLines() throws FileNotFoundException {
+    /**
+     * Read and  parse library state from file
+     * @return parsed state
+     * @throws FileNotFoundException if there is no such ficle
+     */
+    private List <String[]> readAndParseLines() throws FileNotFoundException {
         List <String []> lines = new ArrayList<>();
         try {
             this.libraryFile = new File(this.filepath);
@@ -35,7 +49,7 @@ public class LibraryOperator {
         return lines;
     }
 
-    public void addBook() {
+    public void addBook() throws FileNotFoundException {
         List <String> currentBook = new ArrayList<>();
         Scanner scanner = new Scanner(System.in);
         for (int i=0; i<headers.length; i++) {
@@ -51,6 +65,7 @@ public class LibraryOperator {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        this.libraryState = this.readAndParseLines();
     }
 
     public void deleteBook() {
@@ -71,6 +86,17 @@ public class LibraryOperator {
             System.out.println(String.format("Enter your %s :", headers[attributeIdx-1]));
 //            headers[attributeIdx-1];
             String searchingAttribute = scanner.next();
+            List <String []> foundBooks = new ArrayList<>();;
+            for (int i = 1; i < libraryState.size(); i++) {
+                if (searchingAttribute.equals(libraryState.get(i)[attributeIdx - 1])){
+                    foundBooks.add(libraryState.get(i));
+                }
+            }
+            System.out.println(String.format("Founded books are:"));
+            for (String[] currentBook: foundBooks) {
+                System.out.println(Arrays.toString(currentBook));
+            }
+
 
         } else {
             System.out.println("You chose wrong attribute");
