@@ -17,16 +17,25 @@ import java.util.Scanner;
 //Vowels are: a, e, i, o, u
 public class VowelsQty {
     public static void main(String[] args) {
-        System.out.println("enter your string");
+        System.out.println("Enter your string, please: ");
         Scanner scanner = new Scanner(System.in);
         String word = scanner.nextLine();
-        System.out.println("enter Qty");
+        System.out.println("Enter expected letters: ");
         int vowelsQty = scanner.nextInt();
         Character[] vow = {'a','e','u','i','o'};
         List<Character> vowels = Arrays.asList(vow);
         List<Character> foundVowels= new ArrayList<>();
-                for (char ch : word.toCharArray()){
-           if (vowels.contains(ch)) ;
+        int counter = 0;
+        for (char ch : word.toCharArray()){
+           if ((vowels.contains(ch)) && (counter < vowelsQty)) {
+               foundVowels.add(counter, ch);
+               counter++;
+           }
+        }
+        if (counter >= vowelsQty){
+            System.out.println("Founded vowels are: " + foundVowels);
+        } else {
+            System.out.println("INVALID");
         }
     }
 }
