@@ -6,7 +6,7 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class LibraryRunner {
-    public static void main(String[] args) throws FileNotFoundException {
+    public static void main(String[] args) throws FileNotFoundException, NoSuchFieldException, IllegalAccessException {
         System.out.println(Paths.get("").toAbsolutePath().toString());
         LibraryOperator library = new LibraryOperator("src/andriy/library/library.csv");
         while (true) {

@@ -2,14 +2,15 @@ package andriy.library;
 
 import java.io.*;
 import java.lang.reflect.Array;
+import java.lang.reflect.Field;
 import java.util.*;
 
 public class LibraryOperator {
 
     private String filepath;
-    private String[] headers;
+    private BookRecord headers;
     private File libraryFile;
-    private List <String[] > libraryState;
+    private List <BookRecord> libraryState;
 
 
     /**
@@ -17,11 +18,10 @@ public class LibraryOperator {
      * @param filepath: path for the file with saved data
      * @throws FileNotFoundException if there is no file with defined path
      */
-    public LibraryOperator(String filepath) throws FileNotFoundException {
+    public LibraryOperator(String filepath) throws FileNotFoundException, NoSuchFieldException, IllegalAccessException {
         this.filepath = filepath;
         this.libraryState = this.readAndParseLines();
         this.readHeaders();
-
     }
 
     private void readHeaders () throws FileNotFoundException {
@@ -33,13 +33,13 @@ public class LibraryOperator {
      * @return parsed state
      * @throws FileNotFoundException if there is no such ficle
      */
-    private List <String[]> readAndParseLines() throws FileNotFoundException {
-        List <String []> lines = new ArrayList<>();
+    private List <BookRecord> readAndParseLines() throws FileNotFoundException, NoSuchFieldException, IllegalAccessException {
+        List <BookRecord> lines = new ArrayList<>();
         try {
             this.libraryFile = new File(this.filepath);
             Scanner myReader = new Scanner(this.libraryFile);
             while (myReader.hasNext()) {
-                lines.add(myReader.nextLine().split(";"));
+                lines.add(new BookRecord(myReader.nextLine()));
             }
             myReader.close();
         } catch (FileNotFoundException e) {
@@ -49,12 +49,15 @@ public class LibraryOperator {
         return lines;
     }
 
-    public void addBook() throws FileNotFoundException {
+    public void addBook() throws FileNotFoundException, NoSuchFieldException, IllegalAccessException {
         List <String> currentBook = new ArrayList<>();
         Scanner scanner = new Scanner(System.in);
-        for (int i=0; i<headers.length; i++) {
-            System.out.println("Please add your book " + headers[i]);
-            currentBook.add(scanner.nextLine());
+        String[] attrBookOrder = this.headers.getAttrOrder();
+        for (int i=0; i<this.attrOrder.length; i++) {
+                System.out.println("Please add your book attribute #" + (i+1));
+                Field field = this.getClass().getDeclaredField(this.attrOrder[i]);
+                field.set(this, scanner.nextLine());
+            }
         }
         try {
             BufferedWriter libraryFileWr = new BufferedWriter(new FileWriter(this.filepath, true));
@@ -73,34 +76,32 @@ public class LibraryOperator {
     }
 
     public void searchBook() {
-        System.out.println("Please choose type of searching attribute");
-        for (int i=0; i<headers.length; i++) {
-            System.out.println(String.format("%s. %s", i+1, headers[i]));
-        }
-        Scanner scanner = new Scanner(System.in);
-        int attributeIdx = -1;
-        try {
-            attributeIdx = scanner.nextInt();
-        } catch (InputMismatchException e) { }
-        if ((attributeIdx > 0) && (attributeIdx <= headers.length)) {
-            System.out.println(String.format("Enter your %s :", headers[attributeIdx-1]));
-//            headers[attributeIdx-1];
-            String searchingAttribute = scanner.next();
-            List <String []> foundBooks = new ArrayList<>();;
-            for (int i = 1; i < libraryState.size(); i++) {
-                if (searchingAttribute.equals(libraryState.get(i)[attributeIdx - 1])){
-                    foundBooks.add(libraryState.get(i));
-                }
-            }
-            System.out.println(String.format("Founded books are:"));
-            for (String[] currentBook: foundBooks) {
-                System.out.println(Arrays.toString(currentBook));
-            }
-
-
-        } else {
-            System.out.println("You chose wrong attribute");
-        }
+//        System.out.println("Please choose type of searching attribute");
+//        for (int i=0; i<headers.length; i++) {
+//            System.out.println(String.format("%s. %s", i+1, headers[i]));
+//        }
+//        Scanner scanner = new Scanner(System.in);
+//        int attributeIdx = -1;
+//        try {
+//            attributeIdx = scanner.nextInt();
+//        } catch (InputMismatchException e) { }
+//        if ((attributeIdx > 0) && (attributeIdx <= headers.length)) {
+//            System.out.println(String.format("Enter your %s :", headers[attributeIdx-1]));
+////            headers[attributeIdx-1];
+//            String searchingAttribute = scanner.next();
+//            List <String []> foundBooks = new ArrayList<>();;
+//            for (int i = 1; i < libraryState.size(); i++) {
+//                if (searchingAttribute.equals(libraryState.get(i)[attributeIdx - 1])){
+//                    foundBooks.add(libraryState.get(i));
+//                }
+//            }
+//            System.out.println(String.format("Founded books are:"));
+//            for (String[] currentBook: foundBooks) {
+//                System.out.println(Arrays.toString(currentBook));
+//            }
+//        } else {
+//            System.out.println("You chose wrong attribute");
+//        }
     }
 }
 
