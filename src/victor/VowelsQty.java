@@ -25,8 +25,16 @@ public class VowelsQty {
         Character[] vow = {'a','e','u','i','o'};
         List<Character> vowels = Arrays.asList(vow);
         List<Character> foundVowels= new ArrayList<>();
-                for (char ch : word.toCharArray()){
-           if (vowels.contains(ch)) ;
+        for (char ch : word.toCharArray()){
+           if ((vowels.contains(ch))&&(foundVowels.size()<vowelsQty)) {
+               foundVowels.add(ch);
+           }
+        }
+        if (foundVowels.size()==vowelsQty){
+            System.out.println("FoundVowels :"+ foundVowels );
+        }
+        else {
+            System.out.println("Invalid");
         }
     }
 }

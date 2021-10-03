@@ -50,25 +50,25 @@ public class LibraryOperator {
     }
 
     public void addBook() throws FileNotFoundException, NoSuchFieldException, IllegalAccessException {
-        List <String> currentBook = new ArrayList<>();
-        Scanner scanner = new Scanner(System.in);
-        String[] attrBookOrder = this.headers.getAttrOrder();
-        for (int i=0; i<this.attrOrder.length; i++) {
-                System.out.println("Please add your book attribute #" + (i+1));
-                Field field = this.getClass().getDeclaredField(this.attrOrder[i]);
-                field.set(this, scanner.nextLine());
-            }
-        }
-        try {
-            BufferedWriter libraryFileWr = new BufferedWriter(new FileWriter(this.filepath, true));
-            String resultString = String.join(";", currentBook);
-            libraryFileWr.newLine();
-            libraryFileWr.append(resultString);
-            libraryFileWr.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        this.libraryState = this.readAndParseLines();
+//        List <String> currentBook = new ArrayList<>();
+//        Scanner scanner = new Scanner(System.in);
+//        String[] attrBookOrder = this.headers.getAttrOrder();
+//        for (int i=0; i<this.attrOrder.length; i++) {
+//                System.out.println("Please add your book attribute #" + (i+1));
+//                Field field = this.getClass().getDeclaredField(this.attrOrder[i]);
+//                field.set(this, scanner.nextLine());
+//            }
+//        }
+//        try {
+//            BufferedWriter libraryFileWr = new BufferedWriter(new FileWriter(this.filepath, true));
+//            String resultString = String.join(";", currentBook);
+//            libraryFileWr.newLine();
+//            libraryFileWr.append(resultString);
+//            libraryFileWr.close();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        this.libraryState = this.readAndParseLines();
     }
 
     public void deleteBook() {
