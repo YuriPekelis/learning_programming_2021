@@ -19,7 +19,7 @@ public class MaxInAllArrays {
                 }
             }
             maxValues.add(maximum);
+            System.out.println("Result:" + maxValues);
         }
-        System.out.println("Result:"+ maxValues);
     }
 }
